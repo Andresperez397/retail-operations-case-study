@@ -10,7 +10,7 @@ An online retailer sells about 4,000 products, and half of them bring in 5% of r
 
 Every candidate rule was chosen on one year of data and tested on the next.
 
-**Decision memo:** [one page, PDF](reports/Range%20Review%20Memo.pdf) · **Dashboard:** run locally with `streamlit run app/streamlit_app.py`
+**Live dashboard:** [retail-operations-dashboard.streamlit.app](https://retail-operations-dashboard.streamlit.app) · **Decision memo:** [one page, PDF](reports/Range%20Review%20Memo.pdf)
 
 **Data:** UCI Online Retail II, every invoice line of a UK online giftware retailer, December 2009 to December 2011 (1,067,371 raw lines; CC BY 4.0). Amounts are in US dollars, converted from the source's British pounds at a fixed $1.5774 per £1 (the Federal Reserve's average rate over the period).
 **Stack:** SQL (DuckDB), Python (pandas, NumPy), Streamlit, pytest, GitHub Actions.
