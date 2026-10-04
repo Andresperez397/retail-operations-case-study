@@ -94,10 +94,10 @@ with tab_kpi:
     line = base.transform_filter("!datum.partial").mark_line(color=BLUE, strokeWidth=2, point=alt.OverlayMarkDef(
         color=BLUE, size=30))  # fmt: skip
     partial = base.transform_filter("datum.partial").mark_point(color=GREY, size=40, filled=True)
-    st.altair_chart((line + partial).properties(height=320), use_container_width=True)
+    st.altair_chart((line + partial).properties(height=320), width="stretch")
     st.caption("Grey point: December 2011, nine days only.")
     with st.expander("KPI table"):
-        st.dataframe(kpis, use_container_width=True, hide_index=True)
+        st.dataframe(kpis, width="stretch", hide_index=True)
 
 with tab_range:
     st.subheader("Which products to discontinue")
@@ -124,7 +124,7 @@ with tab_range:
         table.style.format(
             {"Year-2 revenue at risk": "{:.1%}", "Picks removed": "{:.1%}", "Customers affected": "{:.0%}"}
         ),  # fmt: skip
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     st.caption(
@@ -148,7 +148,7 @@ with tab_range:
         "year1_orders": "Y1 orders", "year1_customers": "Y1 customers", "year1_first_sale": "Y1 first sale",
         "key_account_buyers": "Key-account buyers", "year2_net_revenue": "Y2 net revenue (£)",
         "year2_sale_lines": "Y2 sale lines", "in_R4": "In R4"})  # fmt: skip
-    st.dataframe(shown, use_container_width=True, hide_index=True)
+    st.dataframe(shown, width="stretch", hide_index=True)
     st.download_button("Download this list (CSV)", view.to_csv(index=False), file_name="cut_list.csv")
 
     st.subheader("Year-1 ABC classes")
@@ -197,7 +197,7 @@ with tab_canc:
             ],  # fmt: skip
         )
     )
-    st.altair_chart(chart.properties(height=380), use_container_width=True)
+    st.altair_chart(chart.properties(height=380), width="stretch")
     st.subheader("Watch list for listing review")
     wl = canc[canc["watch_list"]].sort_values("rate_Y1", ascending=False)[
         ["stock_code", "description", "sale_lines_Y1", "rate_Y1", "sale_lines_Y2", "rate_Y2"]
@@ -206,7 +206,7 @@ with tab_canc:
                       "rate_Y2": "Y2 cancellation rate"})  # fmt: skip
     st.dataframe(wl.style.format({"Y1 cancellation rate": "{:.1%}", "Y2 cancellation rate": "{:.1%}",
                                   "Y1 sale lines": "{:,.0f}", "Y2 sale lines": "{:,.0f}"}),
-                 use_container_width=True, hide_index=True)  # fmt: skip
+                 width="stretch", hide_index=True)  # fmt: skip
 
 with tab_about:
     st.markdown(
