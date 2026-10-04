@@ -1,0 +1,10 @@
+{
+  "excluded_invoices": [
+    "541431",
+    "C541433"
+  ],
+  "cancellation_rate_without_giant_order": {
+    "Y1": 0.02560078397807231,
+    "Y2": 0.02350741947538328
+  }
+}

@@ -52,15 +52,17 @@ Among 2,060 products with at least 20 sale lines in each year, cancellation rate
 
 ![Cancellations](reports/figures/fig4_cancellation_persistence.png)
 
-**4. KPIs: year 2 grew 1.9%, with fewer, larger orders.**
+**4. KPIs: year 2 grew 1.9%, with fewer, larger orders, and cancellations did not rise once one event is set aside.**
 
 | | Year 1 | Year 2 |
 |---|---|---|
 | Net revenue | £9.16M | £9.33M |
 | Orders | 19,743 | 18,957 |
 | Average order value | £476 | £508 |
-| Cancellation rate | 2.6% | 3.1% |
+| Cancellation rate | 2.6% | 3.1% (2.4% without one order) |
 | Products sold | 4,073 | 3,797 |
+
+One order for 74,215 storage jars (£77k) was placed and cancelled within 16 minutes in January 2011. On its own it lifts year 2's cancellation rate from 2.4% to 3.1%, which is why the dashboard reports both figures. 92 lines carry implausible prices, such as £649.50 for a basket that normally sells at £5.95. They add 0.4% to year-2 revenue and do not touch any cut list (see DEVIATIONS.md).
 
 ![Monthly KPIs](reports/figures/fig1_monthly_kpis.png)
 

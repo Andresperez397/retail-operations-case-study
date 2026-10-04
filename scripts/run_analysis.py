@@ -58,6 +58,17 @@ def main() -> None:
     TABLES.mkdir(parents=True, exist_ok=True)
     kpis = con.execute("SELECT * FROM kpis ORDER BY period_type, period").fetchdf()
     kpis.to_csv(TABLES / "kpis.csv", index=False)
+    # Value-based KPIs without the one giant order-and-cancel pair in the analysis years (74,215 units, January
+    # 2011; see DEVIATIONS.md), so the dashboard can show how much of a change that single event explains.
+    giant = ("541431", "C541433")
+    notes = con.execute(
+        "SELECT analysis_year, -sum(line_value) FILTER (WHERE line_type = 'cancellation') "
+        "/ sum(line_value) FILTER (WHERE line_type = 'sale') FROM product_lines "
+        "WHERE analysis_year IN ('Y1', 'Y2') AND invoice NOT IN (?, ?) GROUP BY 1 ORDER BY 1",
+        list(giant),
+    ).fetchall()
+    kpi_notes = {"excluded_invoices": list(giant), "cancellation_rate_without_giant_order": dict(notes)}
+    (TABLES / "kpi_notes.json").write_text(json.dumps(kpi_notes, indent=2))
 
     py = product_year(con)
     y1, y2, cuts, measures = decision1(con, py)

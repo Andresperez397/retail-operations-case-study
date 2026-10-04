@@ -11,7 +11,7 @@ All KPIs use catalogue product lines only (sales and their cancellations; see [D
 | Gross sales | Σ quantity × unit price over sale lines | |
 | Cancelled value | Σ quantity × unit price over cancellation lines, shown as a positive number | Counted in the period of the cancellation, which can differ from the period of the sale. |
 | **Net revenue** | Gross sales − cancelled value | The headline revenue figure. |
-| Cancellation rate | Cancelled value ÷ gross sales | One cancelled 80,995-unit order alone puts December 2011 at 28%. |
+| Cancellation rate | Cancelled value ÷ gross sales | Value-based, so single giant orders dominate it: one cancelled 80,995-unit order puts December 2011 at 28%, and one 74,215-unit order lifts year 2 from 2.4% to 3.1%. The dashboard shows year 2 with and without that order. |
 | Orders | Distinct sales invoices | |
 | Average order value | Gross sales ÷ orders | Wholesale customers make this high (about £500). |
 

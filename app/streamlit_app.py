@@ -28,10 +28,11 @@ def load():
     canc = pd.read_csv(TABLES / "cancellation_rates.csv")
     d1 = json.loads((TABLES / "decision1_range.json").read_text())
     d2 = json.loads((TABLES / "decision2_cancellations.json").read_text())
-    return kpis, cut, products, canc, d1, d2
+    notes = json.loads((TABLES / "kpi_notes.json").read_text())
+    return kpis, cut, products, canc, d1, d2, notes
 
 
-kpis, cut, products, canc, d1, d2 = load()
+kpis, cut, products, canc, d1, d2, notes = load()
 
 st.title("Retail operations dashboard")
 st.caption(
@@ -72,6 +73,11 @@ with tab_kpi:
         # A rising cancellation rate is bad; Streamlit's "inverse" colors it red.
         cols[i % 4].metric(label, fmt.format(y2[key]), delta,
                            delta_color="inverse" if key == "cancellation_rate" else "normal")  # fmt: skip
+    adj = notes["cancellation_rate_without_giant_order"]
+    st.caption(
+        f"Year 2's cancellation rate includes one cancelled £77k order (74,215 units, January 2011). Without it the "
+        f"rate is {adj['Y2']:.1%}, below year 1's {adj['Y1']:.1%}: the rise is that single event, not a trend."
+    )
     st.caption("Returning-customer share has no year-1 comparison: the data starts in December 2009, so every "
                "year-1 customer counts as new.")  # fmt: skip
 

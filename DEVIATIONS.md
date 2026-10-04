@@ -20,6 +20,11 @@ The plan was frozen at commit `c7cc004`. This file lists every change made after
    - £83.7k of year-1 net revenue (0.9%) and £55.3k of year-2 net revenue (0.6%)
    - 368 of the 906 had no year-2 sales.
 
+6. **One order explains year 2's higher cancellation rate.** The year-2 cancellation rate (3.1%, against 2.6% in year 1) includes a single order for 74,215 storage jars (£77k), cancelled 16 minutes after it was placed. Without that pair, year 2 is 2.35%, below year 1's 2.56%. The KPI definition is unchanged; the README and dashboard now report both figures so the change is not read as a trend. The decision analyses are unaffected: the cancellation-persistence test counts lines, not value.
+7. **Price outliers.** 92 sale lines are priced more than 20 times their product's median price: 73 lines worth £4.6k in year 1 and 19 worth £39.8k in year 2. The largest is 60 wicker baskets at £649.50 each, against a usual £5.95. These look like entry errors but are kept, because the plan did not provide for removing them.
+   - **Effect on the decisions:** they put £71 into the cut lists, all of it in R4.
+   - **Effect on M1:** excluding them from the year-2 total would move R1 from 3.06% to about 3.08% and R4 from 0.59% to 0.60%. Neither conclusion changes.
+
 ## How the memo uses the results
 
 The pre-specified decision criterion **H1 failed narrowly**: R1 puts 3.06% of year-2 revenue at risk, against the 3% guardrail, with a 95% interval of 2.66–3.49%. As the plan required, the memo therefore does **not** recommend R1, and it states that the class-C tail is not safe to cut on revenue alone.
