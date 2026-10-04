@@ -46,16 +46,16 @@ def main() -> None:
     a["row_status"] = rows("SELECT row_status, count(*) AS n FROM lines GROUP BY 1 ORDER BY 2 DESC")
     a["line_types_kept"] = rows(
         "SELECT line_type, count(*) AS n, round(sum(line_value), 2) AS value FROM lines WHERE row_status = 'kept' "
-        "GROUP BY 1 ORDER BY 2 DESC"
+        "GROUP BY 1 ORDER BY 2 DESC, 1"
     )
     a["non_product_codes"] = rows(
         "SELECT stock_code, any_value(description ORDER BY row_id) AS example_description, count(*) AS n, "
         "round(sum(line_value), 2) AS value FROM lines WHERE row_status = 'kept' AND line_type = 'non_product' "
-        "GROUP BY 1 ORDER BY 3 DESC"
+        "GROUP BY 1 ORDER BY 3 DESC, 1"
     )
     a["stock_adjustment_descriptions"] = rows(
         "SELECT coalesce(description, '(blank)') AS description, count(*) AS n FROM lines "
-        "WHERE row_status = 'kept' AND line_type = 'stock_adjustment' GROUP BY 1 ORDER BY 2 DESC LIMIT 10"
+        "WHERE row_status = 'kept' AND line_type = 'stock_adjustment' GROUP BY 1 ORDER BY 2 DESC, 1 LIMIT 10"
     )
     a["lowercase_stock_codes_in_raw"] = one("SELECT count(*) FROM raw WHERE StockCode <> upper(StockCode)")[0]
     a["codes_with_several_descriptions"] = one(
@@ -75,7 +75,7 @@ def main() -> None:
     )
     a["largest_lines"] = rows(
         "SELECT invoice, stock_code, description, quantity, price, invoice_ts::VARCHAR AS invoice_ts "
-        "FROM product_lines ORDER BY abs(quantity) DESC LIMIT 4"
+        "FROM product_lines ORDER BY abs(quantity) DESC, invoice LIMIT 4"
     )
     a["windows"] = rows(
         "SELECT analysis_year, count(*) AS lines, count(DISTINCT invoice) FILTER (WHERE line_type = 'sale') AS orders, "

@@ -115,16 +115,16 @@
       "value": -221520.5
     },
     {
-      "stock_code": "GIFT_0001_30",
-      "example_description": "Dotcomgiftshop Gift Voucher \u00a330.00",
-      "n": 29,
-      "value": 610.09
-    },
-    {
       "stock_code": "GIFT_0001_20",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a320.00",
       "n": 29,
       "value": 471.06
+    },
+    {
+      "stock_code": "GIFT_0001_30",
+      "example_description": "Dotcomgiftshop Gift Voucher \u00a330.00",
+      "n": 29,
+      "value": 610.09
     },
     {
       "stock_code": "CRUK",
@@ -181,6 +181,12 @@
       "value": 59.57
     },
     {
+      "stock_code": "GIFT_0001_60",
+      "example_description": null,
+      "n": 2,
+      "value": 0.0
+    },
+    {
       "stock_code": "GIFT_0001_90",
       "example_description": null,
       "n": 2,
@@ -191,12 +197,6 @@
       "example_description": "This is a test product.",
       "n": 2,
       "value": 1.0
-    },
-    {
-      "stock_code": "GIFT_0001_60",
-      "example_description": null,
-      "n": 2,
-      "value": 0.0
     },
     {
       "stock_code": "GIFT",
@@ -239,11 +239,11 @@
       "n": 17
     },
     {
-      "description": "smashed",
+      "description": "Unsaleable, destroyed.",
       "n": 9
     },
     {
-      "description": "Unsaleable, destroyed.",
+      "description": "smashed",
       "n": 9
     }
   ],
@@ -252,17 +252,9 @@
   "missing_customer_id": {
     "sale_lines": 1003357,
     "sale_lines_without_id": 226761,
-    "share_of_sales_value_without_id": 0.13109840354147648
+    "share_of_sales_value_without_id": 0.1310984035415081
   },
   "largest_lines": [
-    {
-      "invoice": "C581484",
-      "stock_code": "23843",
-      "description": "PAPER CRAFT , LITTLE BIRDIE",
-      "quantity": -80995,
-      "price": 2.08,
-      "invoice_ts": "2011-12-09 09:27:00"
-    },
     {
       "invoice": "581483",
       "stock_code": "23843",
@@ -270,6 +262,14 @@
       "quantity": 80995,
       "price": 2.08,
       "invoice_ts": "2011-12-09 09:15:00"
+    },
+    {
+      "invoice": "C581484",
+      "stock_code": "23843",
+      "description": "PAPER CRAFT , LITTLE BIRDIE",
+      "quantity": -80995,
+      "price": 2.08,
+      "invoice_ts": "2011-12-09 09:27:00"
     },
     {
       "invoice": "541431",
