@@ -10,11 +10,14 @@ Every value is read as text, so nothing is coerced before the SQL staging layer 
 from __future__ import annotations
 
 import hashlib
+import shutil
+import ssl
 import sys
 import urllib.request
 import zipfile
 from pathlib import Path
 
+import certifi
 import pandas as pd
 
 URL = "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip"
@@ -22,12 +25,19 @@ SHA256 = "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb"
 RAW = Path(__file__).resolve().parents[1] / "data" / "raw"
 
 
+def download(url: str, path: Path) -> None:
+    # certifi's CA bundle: python.org's macOS builds ship without root certificates.
+    ctx = ssl.create_default_context(cafile=certifi.where())
+    with urllib.request.urlopen(url, context=ctx) as r, open(path, "wb") as f:
+        shutil.copyfileobj(r, f)
+
+
 def main() -> int:
     RAW.mkdir(parents=True, exist_ok=True)
     zpath = RAW / "online_retail_ii.zip"
     if not zpath.exists():
         print("downloading", URL)
-        urllib.request.urlretrieve(URL, zpath)
+        download(URL, zpath)
     digest = hashlib.sha256(zpath.read_bytes()).hexdigest()
     if digest != SHA256:
         print(f"checksum differs from the file used for this analysis ({digest}); results may differ")
