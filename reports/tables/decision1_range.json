@@ -1,0 +1,132 @@
+{
+  "year1_range": 4073,
+  "year1_new_launches": 253,
+  "year1_abc_counts": {
+    "A": 917,
+    "B": 1069,
+    "C": 2087
+  },
+  "year1_abc_revenue_share": {
+    "A": 0.8001874506520329,
+    "B": 0.14985651615016768,
+    "C": 0.04995603319779924
+  },
+  "year1_c_class_revenue_gbp": 457414.66400000005,
+  "year2_net_revenue_gbp": 9330918.603,
+  "measures": {
+    "R1": {
+      "products_cut": 1969,
+      "M1_revenue_at_risk": 0.03062337752127961,
+      "M1_revenue_at_risk_gbp": 285744.24299999996,
+      "M2_share_still_selling": 0.6663280853224988,
+      "M3_false_cuts": 62,
+      "M4_share_of_sale_lines": 0.07946772414707495,
+      "M5_share_of_customers_touched": 0.59958071278826
+    },
+    "R2": {
+      "products_cut": 2087,
+      "M1_revenue_at_risk": 0.047136596268087715,
+      "M1_revenue_at_risk_gbp": 439827.743,
+      "M2_share_still_selling": 0.6808816482989938,
+      "M3_false_cuts": 123,
+      "M4_share_of_sale_lines": 0.10236908557274497,
+      "M5_share_of_customers_touched": 0.7060330771022595
+    },
+    "R3": {
+      "products_cut": 1969,
+      "M1_revenue_at_risk": 0.03480617684260813,
+      "M1_revenue_at_risk_gbp": 324773.603,
+      "M2_share_still_selling": 0.6307770441848655,
+      "M3_false_cuts": 74,
+      "M4_share_of_sale_lines": 0.06253477893155104,
+      "M5_share_of_customers_touched": 0.6126252038201724
+    },
+    "R4": {
+      "products_cut": 906,
+      "M1_revenue_at_risk": 0.005923988017881544,
+      "M1_revenue_at_risk_gbp": 55276.25,
+      "M2_share_still_selling": 0.5938189845474614,
+      "M3_false_cuts": 10,
+      "M4_share_of_sale_lines": 0.014498168895531623,
+      "M5_share_of_customers_touched": 0.2543675751222921
+    }
+  },
+  "random_baseline_M1": {
+    "median": 0.35723363082690474,
+    "p2_5": 0.32094662746143343,
+    "p97_5": 0.393045806692694
+  },
+  "bootstrap": {
+    "R1_M1_ci": [
+      0.027086286585253083,
+      0.03456898595164024
+    ],
+    "R2_M1_ci": [
+      0.043430645301455455,
+      0.051301455508006896
+    ],
+    "R3_M1_ci": [
+      0.03081114685645049,
+      0.03901908546061282
+    ],
+    "R4_M1_ci": [
+      0.005044766852675905,
+      0.006902846119648715
+    ],
+    "R2_minus_R1_M1": 0.01651321874680809,
+    "R2_minus_R1_M1_ci": [
+      0.015183511423345017,
+      0.017853725186071083
+    ],
+    "R3_minus_R1_M1": 0.004182799321328511,
+    "R3_minus_R1_M1_ci": [
+      0.0024747677099355436,
+      0.006132211812556353
+    ],
+    "R4_minus_R1_M1": -0.02469938950339807,
+    "R4_minus_R1_M1_ci": [
+      -0.027825532035627095,
+      -0.021839065414425693
+    ],
+    "clusters": 5690
+  },
+  "H1_R1_at_most_3pct": false,
+  "sensitivity_R1": {
+    "S1_duplicates_kept": {
+      "products_cut": 1967,
+      "M1_revenue_at_risk": 0.030513649443941703,
+      "M1_revenue_at_risk_gbp": 285343.583,
+      "M2_share_still_selling": 0.6654804270462633,
+      "M3_false_cuts": 61,
+      "M4_share_of_sale_lines": 0.07905237403775386,
+      "M5_share_of_customers_touched": 0.5981830887491265
+    },
+    "S2_cutoff_2010-08-01": {
+      "products_cut": 1955,
+      "M1_revenue_at_risk": 0.02981352370929047,
+      "M1_revenue_at_risk_gbp": 278187.563,
+      "M2_share_still_selling": 0.6644501278772379,
+      "M3_false_cuts": 55,
+      "M4_share_of_sale_lines": 0.077396557161999,
+      "M5_share_of_customers_touched": 0.5944560913114372
+    },
+    "S2_cutoff_2010-10-01": {
+      "products_cut": 1991,
+      "M1_revenue_at_risk": 0.03234415022149775,
+      "M1_revenue_at_risk_gbp": 301800.633,
+      "M2_share_still_selling": 0.6695128076343546,
+      "M3_false_cuts": 72,
+      "M4_share_of_sale_lines": 0.08420870774045927,
+      "M5_share_of_customers_touched": 0.6205450733752621
+    },
+    "S3_abc_70_20_10": {
+      "products_cut": 2456,
+      "M1_revenue_at_risk": 0.055054141489867627,
+      "M1_revenue_at_risk_gbp": 513705.713,
+      "M2_share_still_selling": 0.6885179153094463,
+      "M3_false_cuts": 185,
+      "M4_share_of_sale_lines": 0.1351662458039282,
+      "M5_share_of_customers_touched": 0.7258327509899837
+    }
+  }
+}
