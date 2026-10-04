@@ -19,7 +19,7 @@ TABLES = ROOT / "reports" / "tables"
 
 def product_year(con, source: str = "product_lines") -> pd.DataFrame:
     con.execute((SQL / "03_product_year.sql").read_text().replace("FROM product_lines", f"FROM {source}"))
-    return con.execute("SELECT * FROM product_year").fetchdf()
+    return con.execute("SELECT * FROM product_year ORDER BY stock_code, analysis_year").fetchdf()
 
 
 def key_account_counts(con, source: str = "product_lines") -> pd.Series:
@@ -56,14 +56,15 @@ def main() -> None:
     con = staged()
     run_sql(con, "02_kpis.sql")
     TABLES.mkdir(parents=True, exist_ok=True)
-    kpis = con.execute("SELECT * FROM kpis").fetchdf()
+    kpis = con.execute("SELECT * FROM kpis ORDER BY period_type, period").fetchdf()
     kpis.to_csv(TABLES / "kpis.csv", index=False)
 
     py = product_year(con)
     y1, y2, cuts, measures = decision1(con, py)
     eligible = sorted(y1.index[~y1["new_launch"]])
     y2_lines = con.execute(
-        "SELECT stock_code, customer_id, invoice, line_value FROM product_lines WHERE analysis_year = 'Y2'"
+        "SELECT stock_code, customer_id, invoice, line_value FROM product_lines WHERE analysis_year = 'Y2' "
+        "ORDER BY row_id"
     ).fetchdf()
     d1 = {
         "year1_range": int(len(y1)),
@@ -95,8 +96,9 @@ def main() -> None:
     cut = y1.loc[cuts["R1"]].reset_index()
     cut["year2_net_revenue"] = y2["net_revenue"].reindex(cut["stock_code"]).fillna(0).to_numpy()
     cut["year2_sale_lines"] = y2["sale_lines"].reindex(cut["stock_code"]).fillna(0).astype(int).to_numpy()
+    cut["in_R4"] = cut["stock_code"].isin(cuts["R4"])
     cols = ["stock_code", "description", "net_revenue", "orders", "customers", "first_sale", "key_account_buyers",
-            "year2_net_revenue", "year2_sale_lines"]  # fmt: skip
+            "year2_net_revenue", "year2_sale_lines", "in_R4"]  # fmt: skip
     cut[cols].rename(columns={"net_revenue": "year1_net_revenue", "orders": "year1_orders",
                               "customers": "year1_customers", "first_sale": "year1_first_sale"}).sort_values(
         "year1_net_revenue").to_csv(TABLES / "cut_list_R1.csv", index=False)  # fmt: skip
@@ -108,7 +110,9 @@ def main() -> None:
     d2["H5_persistent"] = d2["spearman_ci"][0] > 0
     d2["H6_watch_list_higher"] = d2["ratio_Y2_ci"][0] > 1
     (TABLES / "decision2_cancellations.json").write_text(json.dumps(d2, indent=2))
-    w.reset_index().to_csv(TABLES / "cancellation_rates.csv", index=False)
+    w = w.join(y1["description"]).reset_index()
+    w["watch_list"] = w["stock_code"].isin(d2["watch_list"])
+    w.to_csv(TABLES / "cancellation_rates.csv", index=False)
 
     print(json.dumps({k: v for k, v in d1.items() if k != "sensitivity_R1"}, indent=2))
     print(json.dumps(sens, indent=2))

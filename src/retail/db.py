@@ -18,6 +18,8 @@ def run_sql(con: duckdb.DuckDBPyConnection, name: str) -> None:
 def staged(raw_path: Path | str = RAW) -> duckdb.DuckDBPyConnection:
     """A connection holding `raw` and the staged `lines` table and `product_lines` view."""
     con = duckdb.connect()
+    # One thread: parallel aggregation sums decimals in a varying order, which changes the last digits run to run.
+    con.execute("SET threads TO 1")
     con.execute(f"CREATE TABLE raw AS SELECT * FROM read_parquet('{raw_path}')")
     run_sql(con, "01_staging.sql")
     return con
