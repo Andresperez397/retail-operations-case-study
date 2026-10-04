@@ -37,15 +37,17 @@ kpis, cut, products, canc, d1, d2, notes = load()
 st.title("Retail operations dashboard")
 st.caption(
     "UK online giftware retailer, every invoice line December 2009 to December 2011 (UCI Online Retail II). "
-    "Product lines only; revenue in GBP before cost. Year 1 = Dec 2009 to Nov 2010, year 2 = Dec 2010 to Nov 2011."
+    "Product lines only; revenue in US dollars before cost, converted from British pounds at $1.5774 per £1 "
+    "(the Federal Reserve's average rate over the period). Year 1 = Dec 2009 to Nov 2010, "
+    "year 2 = Dec 2010 to Nov 2011."
 )
 
 tab_kpi, tab_range, tab_canc, tab_about = st.tabs(["KPIs", "Range review", "Cancellations", "Method"])
 
 KPI_LABELS = {
-    "net_revenue": ("Net revenue", "£{:,.0f}"),
+    "net_revenue": ("Net revenue", "${:,.0f}"),
     "orders": ("Orders", "{:,.0f}"),
-    "average_order_value": ("Average order value", "£{:,.0f}"),
+    "average_order_value": ("Average order value", "${:,.0f}"),
     "active_customers": ("Active customers", "{:,.0f}"),
     "cancellation_rate": ("Cancellation rate", "{:.1%}"),
     "returning_customer_share": ("Returning-customer share of sales", "{:.1%}"),
@@ -75,7 +77,8 @@ with tab_kpi:
                            delta_color="inverse" if key == "cancellation_rate" else "normal")  # fmt: skip
     adj = notes["cancellation_rate_without_giant_order"]
     st.caption(
-        f"Year 2's cancellation rate includes one cancelled £77k order (74,215 units, January 2011). Without it the "
+        f"Year 2's cancellation rate includes one cancelled ${notes['giant_order_value_usd'] / 1000:,.0f}k order "
+        f"(74,215 units, January 2011). Without it the "
         f"rate is {adj['Y2']:.1%}, below year 1's {adj['Y1']:.1%}: the rise is that single event, not a trend."
     )
     st.caption("Returning-customer share has no year-1 comparison: the data starts in December 2009, so every "
@@ -88,7 +91,7 @@ with tab_kpi:
     m["partial"] = m["period"] == "2011-12"
     if key == "returning_customer_share":
         m = m[m["month"] >= "2010-01-01"]
-    fmt_axis = ".0%" if "%" in KPI_LABELS[key][1] else ",.0f"
+    fmt_axis = ".0%" if "%" in KPI_LABELS[key][1] else ("$,.0f" if "$" in KPI_LABELS[key][1] else ",.0f")
     base = alt.Chart(m).encode(
         x=alt.X("month:T", title=None),
         y=alt.Y(f"{key}:Q", title=KPI_LABELS[key][0], axis=alt.Axis(format=fmt_axis)),
@@ -147,12 +150,12 @@ with tab_range:
         mask = view["description"].fillna("").str.contains(q, case=False) | view["stock_code"].str.contains(
             q, case=False)  # fmt: skip
         view = view[mask]
-    st.write(f"{len(view):,} products · year-1 net revenue £{view['year1_net_revenue'].sum():,.0f} · "
-             f"year-2 net revenue £{view['year2_net_revenue'].sum():,.0f}")  # fmt: skip
+    st.write(f"{len(view):,} products · year-1 net revenue ${view['year1_net_revenue'].sum():,.0f} · "
+             f"year-2 net revenue ${view['year2_net_revenue'].sum():,.0f}")  # fmt: skip
     shown = view.assign(year1_first_sale=pd.to_datetime(view["year1_first_sale"]).dt.date).rename(columns={
-        "stock_code": "Code", "description": "Description", "year1_net_revenue": "Y1 net revenue (£)",
+        "stock_code": "Code", "description": "Description", "year1_net_revenue": "Y1 net revenue ($)",
         "year1_orders": "Y1 orders", "year1_customers": "Y1 customers", "year1_first_sale": "Y1 first sale",
-        "key_account_buyers": "Key-account buyers", "year2_net_revenue": "Y2 net revenue (£)",
+        "key_account_buyers": "Key-account buyers", "year2_net_revenue": "Y2 net revenue ($)",
         "year2_sale_lines": "Y2 sale lines", "in_R4": "In R4"})  # fmt: skip
     st.dataframe(shown, width="stretch", hide_index=True)
     st.download_button("Download this list (CSV)", view.to_csv(index=False), file_name="cut_list.csv")
@@ -162,7 +165,7 @@ with tab_range:
     abc["share_of_revenue"] = abc["revenue"] / abc["revenue"].sum()
     abc["share_of_products"] = abc["products"] / abc["products"].sum()
     st.dataframe(
-        abc.style.format({"revenue": "£{:,.0f}", "share_of_revenue": "{:.1%}", "share_of_products": "{:.1%}"}),
+        abc.style.format({"revenue": "${:,.0f}", "share_of_revenue": "{:.1%}", "share_of_products": "{:.1%}"}),
         hide_index=True,
     )
 

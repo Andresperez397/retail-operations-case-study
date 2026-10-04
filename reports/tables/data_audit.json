@@ -36,17 +36,17 @@
     {
       "line_type": "sale",
       "n": 1003357,
-      "value": 19643861.64
+      "value": 30986227.35
     },
     {
       "line_type": "cancellation",
       "n": 17915,
-      "value": -716462.57
+      "value": -1130148.06
     },
     {
       "line_type": "non_product",
       "n": 5800,
-      "value": -72612.51
+      "value": -114538.97
     },
     {
       "line_type": "stock_adjustment",
@@ -64,103 +64,103 @@
       "stock_code": "POST",
       "example_description": "POSTAGE",
       "n": 2086,
-      "value": 110430.41
+      "value": 174192.93
     },
     {
       "stock_code": "DOT",
       "example_description": "DOTCOM POSTAGE",
       "n": 1425,
-      "value": 309844.1
+      "value": 488748.08
     },
     {
       "stock_code": "M",
       "example_description": "Manual",
       "n": 1392,
-      "value": -84058.42
+      "value": -132593.75
     },
     {
       "stock_code": "C2",
       "example_description": "CARRIAGE",
       "n": 277,
-      "value": 13136.0
+      "value": 20720.73
     },
     {
       "stock_code": "D",
       "example_description": "Discount",
       "n": 173,
-      "value": -12879.63
+      "value": -20316.33
     },
     {
       "stock_code": "S",
       "example_description": "SAMPLES",
       "n": 101,
-      "value": -5991.11
+      "value": -9450.38
     },
     {
       "stock_code": "BANK CHARGES",
       "example_description": "Bank Charges",
       "n": 100,
-      "value": -35482.25
+      "value": -55969.7
     },
     {
       "stock_code": "ADJUST",
       "example_description": "Adjustment by john on 26/01/2010 16",
       "n": 67,
-      "value": 6835.24
+      "value": 10781.91
     },
     {
       "stock_code": "AMAZONFEE",
       "example_description": "AMAZON FEE",
       "n": 36,
-      "value": -221520.5
+      "value": -349426.44
     },
     {
       "stock_code": "GIFT_0001_20",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a320.00",
       "n": 29,
-      "value": 471.06
+      "value": 743.05
     },
     {
       "stock_code": "GIFT_0001_30",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a330.00",
       "n": 29,
-      "value": 610.09
+      "value": 962.36
     },
     {
       "stock_code": "CRUK",
       "example_description": "CRUK Commission",
       "n": 16,
-      "value": -7933.43
+      "value": -12514.19
     },
     {
       "stock_code": "GIFT_0001_10",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a310.00",
       "n": 16,
-      "value": 126.21
+      "value": 199.08
     },
     {
       "stock_code": "TEST001",
       "example_description": "This is a test product.",
       "n": 15,
-      "value": 202.5
+      "value": 319.42
     },
     {
       "stock_code": "GIFT_0001_50",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a350.00",
       "n": 8,
-      "value": 253.59
+      "value": 400.01
     },
     {
       "stock_code": "GIFT_0001_40",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a340.00",
       "n": 7,
-      "value": 166.09
+      "value": 261.99
     },
     {
       "stock_code": "B",
       "example_description": "Adjust bad debt",
       "n": 6,
-      "value": -147614.08
+      "value": -232846.45
     },
     {
       "stock_code": "GIFT_0001_80",
@@ -172,13 +172,13 @@
       "stock_code": "ADJUST2",
       "example_description": "Adjustment by Peter on Jun 25 2010",
       "n": 3,
-      "value": 731.05
+      "value": 1153.16
     },
     {
       "stock_code": "GIFT_0001_70",
       "example_description": "Dotcomgiftshop Gift Voucher \u00a370.00",
       "n": 3,
-      "value": 59.57
+      "value": 93.97
     },
     {
       "stock_code": "GIFT_0001_60",
@@ -196,7 +196,7 @@
       "stock_code": "TEST002",
       "example_description": "This is a test product.",
       "n": 2,
-      "value": 1.0
+      "value": 1.58
     },
     {
       "stock_code": "GIFT",
@@ -252,7 +252,7 @@
   "missing_customer_id": {
     "sale_lines": 1003357,
     "sale_lines_without_id": 226761,
-    "share_of_sales_value_without_id": 0.1310984035415081
+    "share_of_sales_value_without_id": 0.1310984035416956
   },
   "largest_lines": [
     {
@@ -260,7 +260,7 @@
       "stock_code": "23843",
       "description": "PAPER CRAFT , LITTLE BIRDIE",
       "quantity": 80995,
-      "price": 2.08,
+      "price": 3.280992,
       "invoice_ts": "2011-12-09 09:15:00"
     },
     {
@@ -268,7 +268,7 @@
       "stock_code": "23843",
       "description": "PAPER CRAFT , LITTLE BIRDIE",
       "quantity": -80995,
-      "price": 2.08,
+      "price": 3.280992,
       "invoice_ts": "2011-12-09 09:27:00"
     },
     {
@@ -276,7 +276,7 @@
       "stock_code": "23166",
       "description": "MEDIUM CERAMIC TOP STORAGE JAR",
       "quantity": 74215,
-      "price": 1.04,
+      "price": 1.640496,
       "invoice_ts": "2011-01-18 10:01:00"
     },
     {
@@ -284,7 +284,7 @@
       "stock_code": "23166",
       "description": "MEDIUM CERAMIC TOP STORAGE JAR",
       "quantity": -74215,
-      "price": 1.04,
+      "price": 1.640496,
       "invoice_ts": "2011-01-18 10:17:00"
     }
   ],
@@ -295,7 +295,7 @@
       "orders": 816,
       "products_sold": 2433,
       "customers": 684,
-      "net_product_revenue": 440400.0
+      "net_product_revenue": 694686.0
     },
     {
       "analysis_year": "Y1",
@@ -303,7 +303,7 @@
       "orders": 19743,
       "products_sold": 4073,
       "customers": 4267,
-      "net_product_revenue": 9156081.0
+      "net_product_revenue": 14442802.0
     },
     {
       "analysis_year": "Y2",
@@ -311,7 +311,7 @@
       "orders": 18957,
       "products_sold": 3797,
       "customers": 4321,
-      "net_product_revenue": 9330919.0
+      "net_product_revenue": 14718591.0
     }
   ]
 }

@@ -1,6 +1,6 @@
 # KPI definitions
 
-Each KPI is computed in [sql/02_kpis.sql](sql/02_kpis.sql). The definition is the same at monthly grain and at analysis-window grain (year 1, year 2, December 2011). All figures are in pounds sterling, before cost: the data has no product cost, so there is no margin KPI.
+Each KPI is computed in [sql/02_kpis.sql](sql/02_kpis.sql). The definition is the same at monthly grain and at analysis-window grain (year 1, year 2, December 2011). All figures are in US dollars, converted from the source's British pounds at one fixed rate ($1.5774 per £1, the Federal Reserve's average daily rate over the data period (FRED series DEXUSUK)), and before cost: the data has no product cost, so there is no margin KPI.
 
 All KPIs use catalogue product lines only (sales and their cancellations; see [DATA_AUDIT.md](DATA_AUDIT.md)). Postage, fees, manual entries, stock adjustments and zero-price lines are excluded.
 
@@ -13,7 +13,7 @@ All KPIs use catalogue product lines only (sales and their cancellations; see [D
 | **Net revenue** | Gross sales − cancelled value | The headline revenue figure. |
 | Cancellation rate | Cancelled value ÷ gross sales | Value-based, so single giant orders dominate it: one cancelled 80,995-unit order puts December 2011 at 28%, and one 74,215-unit order lifts year 2 from 2.4% to 3.1%. The dashboard shows year 2 with and without that order. |
 | Orders | Distinct sales invoices | |
-| Average order value | Gross sales ÷ orders | Wholesale customers make this high (about £500). |
+| Average order value | Gross sales ÷ orders | Wholesale customers make this high (about $800). |
 
 ## Customers
 

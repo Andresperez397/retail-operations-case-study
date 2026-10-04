@@ -60,7 +60,7 @@ def year2_measures(cut: list[str], y2: pd.DataFrame, y2_customers_by_product: pd
     return {
         "products_cut": len(cut),
         "M1_revenue_at_risk": float(y2.loc[in_cut, "net_revenue"].sum() / total_net),
-        "M1_revenue_at_risk_gbp": float(y2.loc[in_cut, "net_revenue"].sum()),
+        "M1_revenue_at_risk_usd": float(y2.loc[in_cut, "net_revenue"].sum()),
         "M2_share_still_selling": float((y2.loc[in_cut, "sale_lines"] > 0).sum() / len(cut)) if cut else 0.0,
         "M3_false_cuts": int(y2_abc.reindex(cut).isin(["A", "B"]).sum()),
         "M4_share_of_sale_lines": float(y2.loc[in_cut, "sale_lines"].sum() / y2["sale_lines"].sum()),

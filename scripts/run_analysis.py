@@ -67,7 +67,12 @@ def main() -> None:
         "WHERE analysis_year IN ('Y1', 'Y2') AND invoice NOT IN (?, ?) GROUP BY 1 ORDER BY 1",
         list(giant),
     ).fetchall()
-    kpi_notes = {"excluded_invoices": list(giant), "cancellation_rate_without_giant_order": dict(notes)}
+    giant_value = con.execute("SELECT sum(line_value) FROM product_lines WHERE invoice = ?", [giant[0]]).fetchone()[0]
+    kpi_notes = {
+        "excluded_invoices": list(giant),
+        "giant_order_value_usd": giant_value,
+        "cancellation_rate_without_giant_order": dict(notes),
+    }
     (TABLES / "kpi_notes.json").write_text(json.dumps(kpi_notes, indent=2))
 
     py = product_year(con)
@@ -82,8 +87,8 @@ def main() -> None:
         "year1_new_launches": int(y1["new_launch"].sum()),
         "year1_abc_counts": y1["abc"].value_counts().sort_index().to_dict(),
         "year1_abc_revenue_share": (y1.groupby("abc")["net_revenue"].sum() / y1["net_revenue"].sum()).to_dict(),
-        "year1_c_class_revenue_gbp": float(y1.loc[y1["abc"] == "C", "net_revenue"].sum()),
-        "year2_net_revenue_gbp": float(y2["net_revenue"].sum()),
+        "year1_c_class_revenue_usd": float(y1.loc[y1["abc"] == "C", "net_revenue"].sum()),
+        "year2_net_revenue_usd": float(y2["net_revenue"].sum()),
         "measures": measures,
         "random_baseline_M1": rng_.random_baseline(eligible, len(cuts["R1"]), y2),
         "bootstrap": rng_.cluster_bootstrap(y2_lines, cuts),
@@ -112,7 +117,7 @@ def main() -> None:
             "year2_net_revenue", "year2_sale_lines", "in_R4"]  # fmt: skip
     cut[cols].rename(columns={"net_revenue": "year1_net_revenue", "orders": "year1_orders",
                               "customers": "year1_customers", "first_sale": "year1_first_sale"}).sort_values(
-        "year1_net_revenue").to_csv(TABLES / "cut_list_R1.csv", index=False)  # fmt: skip
+        ["year1_net_revenue", "stock_code"]).to_csv(TABLES / "cut_list_R1.csv", index=False)  # fmt: skip
     y1.reset_index()[["stock_code", "description", "net_revenue", "orders", "customers", "abc", "new_launch",
                       "key_account_buyers"]].to_csv(TABLES / "year1_products.csv", index=False)  # fmt: skip
 

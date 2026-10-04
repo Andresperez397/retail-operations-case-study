@@ -3,6 +3,8 @@
 -- Output: table `lines`. Every row of `raw` is kept with a status, so each exclusion can be counted.
 
 -- 1. Type every column. Stock codes are upper-cased: '85123a' and '85123A' are the same product.
+--    Prices arrive in British pounds; `price` is converted to US dollars at one fixed rate (macro usd_per_gbp(),
+--    defined in src/retail/currency.py), and the original is kept as `price_gbp`.
 CREATE OR REPLACE TABLE typed AS
 SELECT
     row_number() OVER () AS row_id,
@@ -12,7 +14,8 @@ SELECT
     trim(Description) AS description,
     CAST(Quantity AS INTEGER) AS quantity,
     CAST(InvoiceDate AS TIMESTAMP) AS invoice_ts,
-    CAST(Price AS DOUBLE) AS price,
+    CAST(Price AS DOUBLE) AS price_gbp,
+    CAST(Price AS DOUBLE) * usd_per_gbp() AS price,
     NULLIF(trim("Customer ID"), '') AS customer_id,
     trim(Country) AS country
 FROM raw;

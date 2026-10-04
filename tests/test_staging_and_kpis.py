@@ -5,6 +5,7 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
+from retail.currency import USD_PER_GBP
 from retail.db import run_sql, staged
 
 S1, S2 = "Year 2009-2010", "Year 2010-2011"
@@ -65,7 +66,12 @@ def test_codes_upper_cased_and_cancellations_negative(con):
     codes = {r[0] for r in con.execute("SELECT stock_code FROM product_lines").fetchall()}
     assert codes == {"85123A", "22423"}
     v = dict(con.execute("SELECT invoice, line_value FROM product_lines WHERE line_type = 'cancellation'").fetchall())
-    assert v == {"C100003": -5.0, "C100004": -10.0}
+    assert v == pytest.approx({"C100003": -5.0 * USD_PER_GBP, "C100004": -10.0 * USD_PER_GBP})
+
+
+def test_prices_converted_to_dollars_with_original_kept(con):
+    p = con.execute("SELECT price_gbp, price FROM typed WHERE invoice = '100001' LIMIT 1").fetchone()
+    assert p[0] == 2.5 and p[1] == pytest.approx(2.5 * USD_PER_GBP)
 
 
 def test_windows(con):
@@ -75,9 +81,9 @@ def test_windows(con):
 
 def test_window_kpis(con):
     k = con.execute("SELECT * FROM kpis WHERE period_type = 'window' AND period = 'Y1'").fetchdf().iloc[0]
-    assert k["gross_sales"] == pytest.approx(35.0)  # 25 + 10 (duplicate dropped)
-    assert k["cancelled_value"] == pytest.approx(15.0)
-    assert k["net_revenue"] == pytest.approx(20.0)
+    assert k["gross_sales"] == pytest.approx(35.0 * USD_PER_GBP)  # £25 + £10 (duplicate dropped), in dollars
+    assert k["cancelled_value"] == pytest.approx(15.0 * USD_PER_GBP)
+    assert k["net_revenue"] == pytest.approx(20.0 * USD_PER_GBP)
     assert k["orders"] == 2
     assert k["active_customers"] == 1
     assert k["sales_without_customer_id"] == pytest.approx(10.0 / 35.0)

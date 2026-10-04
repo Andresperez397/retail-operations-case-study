@@ -54,7 +54,7 @@ def fig_kpis() -> None:
     full = m[m["date"] < "2011-12-01"]
     fig, axes = plt.subplots(1, 2, figsize=(10, 3.4))
     for ax, col, title, scale, fmt in (
-        (axes[0], "net_revenue", "Net revenue per month (£k)", 1e3, "{:.0f}"),
+        (axes[0], "net_revenue", "Net revenue per month ($k)", 1e3, "{:.0f}"),
         (axes[1], "active_customers", "Active customers per month", 1, "{:.0f}"),
     ):
         ax.plot(full["date"], full[col] / scale, color=BLUE, lw=2, marker="o", ms=3)

@@ -12,14 +12,14 @@ Every candidate rule was chosen on one year of data and tested on the next.
 
 **Decision memo:** [one page, PDF](reports/Range%20Review%20Memo.pdf) · **Dashboard:** run locally with `streamlit run app/streamlit_app.py`
 
-**Data:** UCI Online Retail II, every invoice line of a UK online giftware retailer, December 2009 to December 2011 (1,067,371 raw lines; CC BY 4.0).
+**Data:** UCI Online Retail II, every invoice line of a UK online giftware retailer, December 2009 to December 2011 (1,067,371 raw lines; CC BY 4.0). Amounts are in US dollars, converted from the source's British pounds at a fixed $1.5774 per £1 (the Federal Reserve's average rate over the period).
 **Stack:** SQL (DuckDB), Python (pandas, NumPy), Streamlit, pytest, GitHub Actions.
 
 ## Recommendation
 
 | Recommendation | Evidence |
 |---|---|
-| **1. Discontinue 906 products** (22% of the range): low-revenue products that fewer than three key accounts buy | Tested on the following year, they put **0.6% of revenue at risk** (£55k of £9.33M; 95% CI 0.5–0.7%). |
+| **1. Discontinue 906 products** (22% of the range): low-revenue products that fewer than three key accounts buy | Tested on the following year, they put **0.6% of revenue at risk** ($87k of $14.72M; 95% CI 0.5–0.7%). |
 | **2. Do not cut the standard "class C" tail** (1,969 products) | It puts 3.1% at risk (2.7–3.5%), over the 3% guardrail set in advance, and touches 60% of customers. |
 | **3. Send the 50 products with the highest cancellation rates for a listing review each year** | Next year they cancel at **4.6× the rate** of other products (95% CI 3.6–5.8×). |
 
@@ -56,13 +56,13 @@ Among 2,060 products with at least 20 sale lines in each year, cancellation rate
 
 | | Year 1 | Year 2 |
 |---|---|---|
-| Net revenue | £9.16M | £9.33M |
+| Net revenue | $14.44M | $14.72M |
 | Orders | 19,743 | 18,957 |
-| Average order value | £476 | £508 |
+| Average order value | $751 | $802 |
 | Cancellation rate | 2.6% | 3.1% (2.4% without one order) |
 | Products sold | 4,073 | 3,797 |
 
-One order for 74,215 storage jars (£77k) was placed and cancelled within 16 minutes in January 2011. On its own it lifts year 2's cancellation rate from 2.4% to 3.1%, which is why the dashboard reports both figures. 92 lines carry implausible prices, such as £649.50 for a basket that normally sells at £5.95. They add 0.4% to year-2 revenue and do not touch any cut list (see DEVIATIONS.md).
+One order for 74,215 storage jars ($122k) was placed and cancelled within 16 minutes in January 2011. On its own it lifts year 2's cancellation rate from 2.4% to 3.1%, which is why the dashboard reports both figures. 92 lines carry implausible prices, such as $1,024.52 for a basket that normally sells at $9.39. They add 0.4% to year-2 revenue and do not touch any cut list (see DEVIATIONS.md).
 
 ![Monthly KPIs](reports/figures/fig1_monthly_kpis.png)
 

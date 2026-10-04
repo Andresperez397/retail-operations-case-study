@@ -6,6 +6,8 @@ from pathlib import Path
 
 import duckdb
 
+from retail.currency import USD_PER_GBP
+
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw" / "online_retail_ii_text.parquet"
 SQL = ROOT / "sql"
@@ -20,6 +22,8 @@ def staged(raw_path: Path | str = RAW) -> duckdb.DuckDBPyConnection:
     con = duckdb.connect()
     # One thread: parallel aggregation sums decimals in a varying order, which changes the last digits run to run.
     con.execute("SET threads TO 1")
+    # The staging SQL converts GBP prices to US dollars with this macro (see retail/currency.py).
+    con.execute(f"CREATE MACRO usd_per_gbp() AS {USD_PER_GBP}")
     con.execute(f"CREATE TABLE raw AS SELECT * FROM read_parquet('{raw_path}')")
     run_sql(con, "01_staging.sql")
     return con
