@@ -104,4 +104,7 @@ PYTHONPATH=src .venv/bin/python scripts/make_figures.py
 
 The dashboard reads only the committed tables in `reports/tables`, so it runs without the raw data.
 
-**Data citation:** Chen, D. (2019). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D (CC BY 4.0).
+## Data and license
+
+- **Data:** Chen, D. (2019). Online Retail II [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5CG6D (CC BY 4.0). Raw data are not committed; only aggregate tables derived from it are.
+- **Code:** MIT (see `LICENSE`).
