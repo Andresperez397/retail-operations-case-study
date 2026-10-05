@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/Andresperez397/retail-operations-case-study/actions/workflows/ci.yml/badge.svg)](https://github.com/Andresperez397/retail-operations-case-study/actions/workflows/ci.yml)
 
-An online retailer sells about 4,000 products, and half of them bring in 5% of revenue. Which ones should the merchandising team discontinue, and how much revenue would that put at risk? The case study covers the work an operations or business analyst does end to end:
+An online retailer sells about 4,000 products, and half of them bring in 5% of revenue. Which ones should the merchandising team discontinue, and how much revenue would that put at risk? The case study takes an operations decision from raw data to a recommendation, end to end:
 - SQL staging of messy invoice data
 - written KPI definitions
 - a dashboard
@@ -81,7 +81,7 @@ One order for 74,215 storage jars ($122k) was placed and cancelled within 16 min
 5. **Out-of-time test.** Rules see only year 1 (December 2009 to November 2010); outcomes come from year 2 (December 2010 to November 2011). Intervals come from a cluster bootstrap over year-2 customers.
 6. **Memo and dashboard.** The memo states the recommendation, the evidence and the limits on one page. The dashboard shows the KPIs, the cut lists (searchable and downloadable) and the cancellation watch list.
 
-**Tests:** 11 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
+**Tests:** 12 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
 
 ## Limits
 
