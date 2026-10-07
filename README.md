@@ -2,6 +2,14 @@
 
 [![tests](https://github.com/Andresperez397/retail-operations-case-study/actions/workflows/ci.yml/badge.svg)](https://github.com/Andresperez397/retail-operations-case-study/actions/workflows/ci.yml)
 
+## At a glance
+
+- **Question:** Which products should an online retailer discontinue, and how much revenue would the cut put at risk?
+- **Answer:** Cutting the usual bottom 5% (1,969 products) fails a 3% revenue guardrail set in advance (3.06% at risk). Sparing products that key accounts buy cuts 906 products with 0.6% at risk ($87k of $14.72M).
+- **Why it matters:** It takes an operations decision from messy invoice data to a one-page recommendation, and reports the test the first rule failed.
+- **Start here:** [Decision memo (1 page)](reports/Range%20Review%20Memo.pdf) · [Live dashboard](https://retail-operations-dashboard.streamlit.app)
+
+
 An online retailer sells about 4,000 products, and half of them bring in 5% of revenue. Which ones should the merchandising team discontinue, and how much revenue would that put at risk? The case study takes an operations decision from raw data to a recommendation, end to end:
 - SQL staging of messy invoice data
 - written KPI definitions
