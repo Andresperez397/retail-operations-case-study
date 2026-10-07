@@ -1,0 +1,228 @@
+{
+  "origins": {
+    "2010-06-01": {
+      "train": [
+        "2009-12-01",
+        "2010-05-31"
+      ],
+      "test": [
+        "2010-06-01",
+        "2010-11-30"
+      ],
+      "range_size": 3671,
+      "measures": {
+        "R1": {
+          "products_cut": 1691,
+          "M1_revenue_at_risk": 0.05035797112286972,
+          "M1_revenue_at_risk_usd": 417258.7584462001,
+          "M2_share_still_selling": 0.7746895328208161,
+          "M3_false_cuts": 129,
+          "M4_share_of_sale_lines": 0.08887623677458677,
+          "M5_share_of_customers_touched": 0.6592018374964111
+        },
+        "R2": {
+          "products_cut": 1848,
+          "M1_revenue_at_risk": 0.06315440503948758,
+          "M1_revenue_at_risk_usd": 523288.1319402,
+          "M2_share_still_selling": 0.7813852813852814,
+          "M3_false_cuts": 162,
+          "M4_share_of_sale_lines": 0.1101719349340691,
+          "M5_share_of_customers_touched": 0.7436118288831467
+        },
+        "R3": {
+          "products_cut": 1691,
+          "M1_revenue_at_risk": 0.053575815604208564,
+          "M1_revenue_at_risk_usd": 443921.3455842001,
+          "M2_share_still_selling": 0.7498521584861029,
+          "M3_false_cuts": 139,
+          "M4_share_of_sale_lines": 0.07233968007182508,
+          "M5_share_of_customers_touched": 0.6439850703416595
+        },
+        "R4": {
+          "products_cut": 1147,
+          "M1_revenue_at_risk": 0.02703922799596916,
+          "M1_revenue_at_risk_usd": 224043.0750360001,
+          "M2_share_still_selling": 0.7428073234524848,
+          "M3_false_cuts": 58,
+          "M4_share_of_sale_lines": 0.041237376778747364,
+          "M5_share_of_customers_touched": 0.49727246626471433
+        }
+      },
+      "M1_ci": {
+        "R1": [
+          0.045255985769676384,
+          0.055783152394611485
+        ],
+        "R2": [
+          0.05738295053964827,
+          0.0688872461779683
+        ],
+        "R3": [
+          0.04817870257742396,
+          0.05914924489718158
+        ],
+        "R4": [
+          0.024101943011497852,
+          0.030123580607521516
+        ]
+      },
+      "random_baseline_M1": {
+        "median": 0.36198502999070004,
+        "p2_5": 0.33028584932422833,
+        "p97_5": 0.3969411557810658
+      },
+      "test_net_revenue_usd": 8285853.2451222
+    },
+    "2010-12-01": {
+      "train": [
+        "2009-12-01",
+        "2010-11-30"
+      ],
+      "test": [
+        "2010-12-01",
+        "2011-05-31"
+      ],
+      "range_size": 4073,
+      "measures": {
+        "R1": {
+          "products_cut": 1969,
+          "M1_revenue_at_risk": 0.03984835975713663,
+          "M1_revenue_at_risk_usd": 234380.81989739998,
+          "M2_share_still_selling": 0.6292534281361097,
+          "M3_false_cuts": 99,
+          "M4_share_of_sale_lines": 0.09551541653208775,
+          "M5_share_of_customers_touched": 0.5607511045655376
+        },
+        "R2": {
+          "products_cut": 2087,
+          "M1_revenue_at_risk": 0.0636818579782405,
+          "M1_revenue_at_risk_usd": 374565.1308234,
+          "M2_share_still_selling": 0.6444657402970771,
+          "M3_false_cuts": 161,
+          "M4_share_of_sale_lines": 0.12761062386643146,
+          "M5_share_of_customers_touched": 0.6907216494845361
+        },
+        "R3": {
+          "products_cut": 1969,
+          "M1_revenue_at_risk": 0.045874135915848845,
+          "M1_revenue_at_risk_usd": 269823.3416274,
+          "M2_share_still_selling": 0.5931945149822245,
+          "M3_false_cuts": 93,
+          "M4_share_of_sale_lines": 0.07287137568635245,
+          "M5_share_of_customers_touched": 0.5666421207658321
+        },
+        "R4": {
+          "products_cut": 906,
+          "M1_revenue_at_risk": 0.007379895967131274,
+          "M1_revenue_at_risk_usd": 43407.208679999996,
+          "M2_share_still_selling": 0.5331125827814569,
+          "M3_false_cuts": 12,
+          "M4_share_of_sale_lines": 0.016447613605306964,
+          "M5_share_of_customers_touched": 0.20103092783505155
+        }
+      },
+      "M1_ci": {
+        "R1": [
+          0.03465029478101934,
+          0.04671131791701801
+        ],
+        "R2": [
+          0.05840968602271037,
+          0.07063764647219933
+        ],
+        "R3": [
+          0.040033886016112324,
+          0.0527441318882394
+        ],
+        "R4": [
+          0.006095199048670774,
+          0.009048010216584095
+        ]
+      },
+      "random_baseline_M1": {
+        "median": 0.42198032458031765,
+        "p2_5": 0.3779335679487601,
+        "p97_5": 0.46460485207346197
+      },
+      "test_net_revenue_usd": 5881818.5071074
+    },
+    "2011-06-01": {
+      "train": [
+        "2010-06-01",
+        "2011-05-31"
+      ],
+      "test": [
+        "2011-06-01",
+        "2011-11-30"
+      ],
+      "range_size": 3784,
+      "measures": {
+        "R1": {
+          "products_cut": 1912,
+          "M1_revenue_at_risk": 0.031550661862699024,
+          "M1_revenue_at_risk_usd": 278806.0210188,
+          "M2_share_still_selling": 0.6631799163179917,
+          "M3_false_cuts": 62,
+          "M4_share_of_sale_lines": 0.08916106318835106,
+          "M5_share_of_customers_touched": 0.5818181818181818
+        },
+        "R2": {
+          "products_cut": 2011,
+          "M1_revenue_at_risk": 0.05270572913141772,
+          "M1_revenue_at_risk_usd": 465748.53763679997,
+          "M2_share_still_selling": 0.6767777225261065,
+          "M3_false_cuts": 126,
+          "M4_share_of_sale_lines": 0.1127766050003035,
+          "M5_share_of_customers_touched": 0.7344877344877345
+        },
+        "R3": {
+          "products_cut": 1912,
+          "M1_revenue_at_risk": 0.03395264140789722,
+          "M1_revenue_at_risk_usd": 300031.7678028,
+          "M2_share_still_selling": 0.6365062761506276,
+          "M3_false_cuts": 67,
+          "M4_share_of_sale_lines": 0.06819607340612797,
+          "M5_share_of_customers_touched": 0.5786435786435786
+        },
+        "R4": {
+          "products_cut": 871,
+          "M1_revenue_at_risk": 0.005829697121199557,
+          "M1_revenue_at_risk_usd": 51515.707188,
+          "M2_share_still_selling": 0.5878300803673938,
+          "M3_false_cuts": 4,
+          "M4_share_of_sale_lines": 0.014578036163511408,
+          "M5_share_of_customers_touched": 0.20865800865800865
+        }
+      },
+      "M1_ci": {
+        "R1": [
+          0.027583104753287856,
+          0.03589739891524711
+        ],
+        "R2": [
+          0.04709023173672132,
+          0.05874728713891614
+        ],
+        "R3": [
+          0.03022084614557355,
+          0.03829936751827745
+        ],
+        "R4": [
+          0.004922035973538114,
+          0.006822818874609033
+        ]
+      },
+      "random_baseline_M1": {
+        "median": 0.3827777920949956,
+        "p2_5": 0.3479129403269273,
+        "p97_5": 0.4148275084526096
+      },
+      "test_net_revenue_usd": 8836772.497264795
+    }
+  },
+  "checks": {
+    "R4_below_R1_every_origin": true,
+    "R2_above_R1_every_origin": true,
+    "R4_under_3pct_every_origin": true
+  }
+}

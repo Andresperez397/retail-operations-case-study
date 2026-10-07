@@ -79,6 +79,21 @@ One order for 74,215 storage jars ($122k) was placed and cancelled within 16 min
 - **The standard class C cut (1,969 products):** needs about $82 a year per listing, because it gives up five times as much margin.
 - **Margin is an assumption, not data.** The break-even point is what to check with finance before signing off; the loss figures are an upper bound (no customer switches to a substitute).
 
+**6. The ranking holds at other cut-off dates.** The recommended rule was chosen after seeing all four rules' results on one transition, so I re-applied the same rules at three more cut-off dates, each using only earlier data and measuring the next six months. I wrote the expectation down before running it ([DEVIATIONS.md](DEVIATIONS.md), item 10), and all three parts held:
+
+| Train on → test on | R1 class C | R4 key-account protected | R2 no launch protection | Random cut |
+|---|---|---|---|---|
+| Dec 2009–May 2010 → Jun–Nov 2010 | 5.0% | **2.7%** (2.4–3.0) | 6.3% | 36% |
+| Dec 2009–Nov 2010 → Dec 2010–May 2011 | 4.0% | **0.7%** | 6.4% | 42% |
+| Jun 2010–May 2011 → Jun–Nov 2011 | 3.2% | **0.6%** | 5.3% | 38% |
+| *Main test:* Dec 2009–Nov 2010 → Dec 2010–Nov 2011 | 3.1% | **0.6%** | 4.7% | 36% |
+
+- **R4 is lowest every time,** and R2 (no protection for new launches) is worse than R1 every time.
+- **R1 never reliably clears the 3% guardrail** (it is at or above it at all four dates).
+- **The earliest date is the weak spot:** with only six months of history, R4 reaches 2.7% and its interval touches 3%. Short history makes the key-account signal noisier.
+
+![Rolling origins](reports/figures/fig5_rolling_origins.png)
+
 ## How it was done
 
 1. **Audit first** ([DATA_AUDIT.md](DATA_AUDIT.md)). The two source sheets overlap by nine days: 22,523 identical rows that would double-count early December 2010. Other problems found:
@@ -94,13 +109,13 @@ One order for 74,215 storage jars ($122k) was placed and cancelled within 16 min
 5. **Out-of-time test.** Rules see only year 1 (December 2009 to November 2010); outcomes come from year 2 (December 2010 to November 2011). Intervals come from a cluster bootstrap over year-2 customers.
 6. **Memo and dashboard.** The memo states the recommendation, the evidence and the limits on one page. The dashboard shows the KPIs, the cut lists (searchable and downloadable) and the cancellation watch list.
 
-**Tests:** 15 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
+**Tests:** 18 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
 
 ## Limits
 
 - **Revenue only.** The data has no cost, margin or stock levels, so the savings from a smaller range are not measured. The "What if" tab turns that gap into a break-even cost per listing, but the inputs are the reader's assumptions.
 - **An upper bound.** Revenue at risk assumes no customer switches to a substitute product.
-- **One transition tested,** from 2010 to 2011.
+- **Four transitions tested** (the main one plus three more cut-off dates), all within 2009–2011, so one retailer and one economic period.
 - **Selection.** R4 was one of four pre-specified rules and was chosen after seeing all four results. Its interval sits far below the guardrail.
 
 ## Run it

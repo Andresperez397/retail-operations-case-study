@@ -145,10 +145,45 @@ def fig_cancellations() -> None:
     save(fig, "fig4_cancellation_persistence.png")
 
 
+def fig_rolling() -> None:
+    r = json.loads((TABLES / "rolling_origins.json").read_text())["origins"]
+    d1 = json.loads((TABLES / "decision1_range.json").read_text())
+    rows = [("Dec 2009-May 2010\n-> Jun-Nov 2010", r["2010-06-01"]["measures"], r["2010-06-01"]["M1_ci"])]
+    rows.append(("Dec 2009-Nov 2010\n-> Dec 2010-May 2011", r["2010-12-01"]["measures"], r["2010-12-01"]["M1_ci"]))
+    rows.append(("Jun 2010-May 2011\n-> Jun-Nov 2011", r["2011-06-01"]["measures"], r["2011-06-01"]["M1_ci"]))
+    rows.append(("Dec 2009-Nov 2010\n-> Dec 2010-Nov 2011 (main)", d1["measures"],
+                 {k: d1["bootstrap"][f"{k}_M1_ci"] for k in ("R1", "R2", "R3", "R4")}))  # fmt: skip
+    fig, ax = plt.subplots(figsize=(8.4, 3.8))
+    cols = {"R1": BLUE, "R2": GREY, "R3": "#c9a227", "R4": ORANGE}
+    names = {
+        "R1": "R1 class C",
+        "R2": "R2 no launch protection",
+        "R3": "R3 fewest orders",
+        "R4": "R4 key-account protected",
+    }
+    for i, (_label, m, ci) in enumerate(rows):
+        for j, k in enumerate(("R1", "R2", "R3", "R4")):
+            y = i + (j - 1.5) * 0.17
+            lo, hi = ci[k]
+            ax.plot([100 * lo, 100 * hi], [y, y], color=cols[k], lw=2, solid_capstyle="round")
+            ax.plot(100 * m[k]["M1_revenue_at_risk"], y, "o", color=cols[k], ms=6, mec="white", mew=1.2,
+                    label=names[k] if i == 0 else None)  # fmt: skip
+    ax.axvline(3, color=INK, lw=1.2, ls="--")
+    ax.text(3.06, -0.42, "3% guardrail", fontsize=8.5, color=INK, va="center")
+    ax.set_yticks(range(len(rows)), [r[0] for r in rows], fontsize=8.5)
+    ax.invert_yaxis()
+    ax.set_xlabel("Revenue at risk in the test window (% of that window's net revenue; 95% interval)")
+    ax.set_title("R4 puts the least revenue at risk at every cut-off date")
+    ax.grid(axis="y", visible=False)
+    ax.legend(frameon=False, fontsize=8, loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=4)
+    save(fig, "fig5_rolling_origins.png")
+
+
 def main() -> None:
     fig_kpis()
     fig_pareto()
     fig_rules()
+    fig_rolling()
     fig_cancellations()
 
 

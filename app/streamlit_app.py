@@ -166,6 +166,27 @@ with tab_range:
     st.dataframe(shown, width="stretch", hide_index=True)
     st.download_button("Download this list (CSV)", view.to_csv(index=False), file_name="cut_list.csv")
 
+    st.subheader("Does the ranking hold at other dates?")
+    ro = json.loads((TABLES / "rolling_origins.json").read_text())["origins"]
+    rows = []
+    for _cut, v in ro.items():
+        m = v["measures"]
+        rows.append(
+            {
+                "Trained on": f"{v['train'][0]} to {v['train'][1]}",
+                "Tested on": f"{v['test'][0]} to {v['test'][1]}",
+                "R1 at risk": m["R1"]["M1_revenue_at_risk"],
+                "R4 at risk": m["R4"]["M1_revenue_at_risk"],
+                "R2 at risk": m["R2"]["M1_revenue_at_risk"],
+            }
+        )
+    st.dataframe(
+        pd.DataFrame(rows).style.format({c: "{:.1%}" for c in ["R1 at risk", "R4 at risk", "R2 at risk"]}),
+        width="stretch",
+        hide_index=True,
+    )
+    st.caption("Same four rules, three more cut-off dates, each using only earlier data. R4 is lowest every time.")
+
     st.subheader("Year-1 ABC classes")
     abc = products.groupby("abc").agg(products=("stock_code", "size"), revenue=("net_revenue", "sum")).reset_index()
     abc["share_of_revenue"] = abc["revenue"] / abc["revenue"].sum()
