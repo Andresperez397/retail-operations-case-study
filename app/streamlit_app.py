@@ -8,11 +8,15 @@ Reads the tables written by scripts/run_analysis.py (reports/tables); no raw dat
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import altair as alt
 import pandas as pd
 import streamlit as st
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from retail.scenario import Assumptions, economics  # noqa: E402
 
 TABLES = Path(__file__).resolve().parents[1] / "reports" / "tables"
 BLUE, ORANGE, GREY = "#2a78d6", "#eb6834", "#9a9890"
@@ -42,7 +46,9 @@ st.caption(
     "year 2 = Dec 2010 to Nov 2011."
 )
 
-tab_kpi, tab_range, tab_canc, tab_about = st.tabs(["KPIs", "Range review", "Cancellations", "Method"])
+tab_kpi, tab_range, tab_whatif, tab_canc, tab_about = st.tabs(
+    ["KPIs", "Range review", "What if", "Cancellations", "Method"]
+)
 
 KPI_LABELS = {
     "net_revenue": ("Net revenue", "${:,.0f}"),
@@ -167,6 +173,50 @@ with tab_range:
     st.dataframe(
         abc.style.format({"revenue": "${:,.0f}", "share_of_revenue": "{:.1%}", "share_of_products": "{:.1%}"}),
         hide_index=True,
+    )
+
+with tab_whatif:
+    st.subheader("Does the cut pay? It depends on costs the data doesn't have")
+    st.write(
+        "The dataset has no product cost or stock data, so set your own. Revenue at risk is an upper bound "
+        "(it assumes no customer switches to a substitute product)."
+    )
+    c1, c2, c3 = st.columns(3)
+    margin = c1.slider("Gross margin", 0.10, 0.70, 0.40, 0.05)
+    pick = c2.slider("Cost per order line picked ($)", 0.0, 3.0, 0.50, 0.10)
+    listing = c3.slider("Yearly cost of carrying one listing ($)", 0, 300, 0, 10)
+    y2_lines = float(kpis[(kpis["period_type"] == "window") & (kpis["period"] == "Y2")]["sale_lines"].iloc[0])
+    rows = []
+    for r, label in (
+        ("R1", "Class C tail, new launches protected"),
+        ("R4", "Same, minus key-account products (recommended)"),
+    ):
+        e = economics(d1["measures"][r], y2_lines, Assumptions(margin, pick, listing))
+        rows.append(
+            {
+                "Rule": label,
+                "Products cut": e["products_cut"],
+                "Margin lost ($)": e["gross_margin_lost"],
+                "Pick cost saved ($)": e["pick_cost_saved"],
+                "Listing cost saved ($)": e["listing_cost_saved"],
+                "Net benefit ($)": e["net_benefit"],
+                "Break-even $ per listing per year": e["break_even_cost_per_listing"],
+            }
+        )
+    st.dataframe(
+        pd.DataFrame(rows).style.format(
+            {
+                c: "{:,.0f}"
+                for c in ["Margin lost ($)", "Pick cost saved ($)", "Listing cost saved ($)", "Net benefit ($)"]
+            }
+            | {"Break-even $ per listing per year": "{:,.0f}"}
+        ),
+        width="stretch",
+        hide_index=True,
+    )
+    st.caption(
+        "Break-even is the yearly cost per listing above which the cut pays for itself. If carrying a product costs "
+        "more than that (catalogue upkeep, a storage slot, stock tied up), cutting it adds profit."
     )
 
 with tab_canc:

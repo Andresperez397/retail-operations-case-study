@@ -29,6 +29,8 @@ The plan was frozen at commit `c7cc004`. This file lists every change made after
    - **Verification:** every share, count, interval, ranking and cut list is identical to the pound-based run, and every amount is exactly 1.5774 times its pound value.
    - **Why one rate:** monthly rates would have changed the shares slightly and broken comparability with the frozen plan.
 
+9. **What-if economics (added after publication).** `src/retail/scenario.py` and the dashboard's "What if" tab turn revenue at risk into a profit view under user-set margin, pick cost and listing cost. No result in the frozen analysis changed; the margin and cost inputs are illustrative assumptions, not data.
+
 ## How the memo uses the results
 
 The pre-specified decision criterion **H1 failed narrowly**: R1 puts 3.06% of year-2 revenue at risk, against the 3% guardrail, with a 95% interval of 2.66–3.49%. As the plan required, the memo therefore does **not** recommend R1, and it states that the class-C tail is not safe to cut on revenue alone.

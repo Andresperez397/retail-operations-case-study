@@ -74,6 +74,11 @@ One order for 74,215 storage jars ($122k) was placed and cancelled within 16 min
 
 ![Monthly KPIs](reports/figures/fig1_monthly_kpis.png)
 
+**5. Does the cut pay? It depends on one cost the data doesn't have.** The dashboard's "What if" tab lets you set a gross margin, a cost per order line picked, and a yearly cost of carrying one listing. Under one illustrative setting (40% margin, $0.50 a pick):
+- **Recommended cut (906 products):** at most $34.9k of gross margin lost and $3.6k of picking saved, so it pays only if carrying a listing costs about **$35 a year or more** (catalogue upkeep, a storage slot, stock tied up).
+- **The standard class C cut (1,969 products):** needs about $82 a year per listing, because it gives up five times as much margin.
+- **Margin is an assumption, not data.** The break-even point is what to check with finance before signing off; the loss figures are an upper bound (no customer switches to a substitute).
+
 ## How it was done
 
 1. **Audit first** ([DATA_AUDIT.md](DATA_AUDIT.md)). The two source sheets overlap by nine days: 22,523 identical rows that would double-count early December 2010. Other problems found:
@@ -89,11 +94,11 @@ One order for 74,215 storage jars ($122k) was placed and cancelled within 16 min
 5. **Out-of-time test.** Rules see only year 1 (December 2009 to November 2010); outcomes come from year 2 (December 2010 to November 2011). Intervals come from a cluster bootstrap over year-2 customers.
 6. **Memo and dashboard.** The memo states the recommendation, the evidence and the limits on one page. The dashboard shows the KPIs, the cut lists (searchable and downloadable) and the cancellation watch list.
 
-**Tests:** 12 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
+**Tests:** 15 tests run on a synthetic extract with every audited problem planted, plus hand-built tables for the decision logic. CI runs lint and the tests on every push. Runs are deterministic: the same input gives byte-identical tables.
 
 ## Limits
 
-- **Revenue only.** The data has no cost, margin or stock levels, so the savings from a smaller range are not measured. A real sign-off would add margin and holding cost.
+- **Revenue only.** The data has no cost, margin or stock levels, so the savings from a smaller range are not measured. The "What if" tab turns that gap into a break-even cost per listing, but the inputs are the reader's assumptions.
 - **An upper bound.** Revenue at risk assumes no customer switches to a substitute product.
 - **One transition tested,** from 2010 to 2011.
 - **Selection.** R4 was one of four pre-specified rules and was chosen after seeing all four results. Its interval sits far below the guardrail.
